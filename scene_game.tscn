@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cl75264evftlu" path="res://Tiles/Overworld.png" id="2_o2lv5"]
 [ext_resource type="Shader" uid="uid://16dww5immogc" path="res://scene_game.gdshader" id="3_0lnjc"]
 [ext_resource type="PackedScene" uid="uid://cwh1a3hf0q4b7" path="res://Characters/player.tscn" id="4_jromk"]
+[ext_resource type="Script" uid="uid://yqbexw633u0p" path="res://screen_transition.gd" id="5_h7krh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0lnjc"]
 texture = ExtResource("2_o2lv5")
@@ -117,9 +118,22 @@ sources/0 = SubResource("TileSetAtlasSource_jromk")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ostoq"]
 shader = ExtResource("3_0lnjc")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s53oh"]
+size = Vector2(256, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7krh"]
+size = Vector2(256, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gi3cl"]
+size = Vector2(5, 176)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dp84k"]
+size = Vector2(5, 176)
+
 [node name="Scene_Game" type="Node2D" unique_id=486750241]
 
 [node name="Sprite_Map" type="Sprite2D" parent="." unique_id=1524565462]
+visible = false
 self_modulate = Color(1, 1, 1, 0.7882353)
 position = Vector2(-256, 0)
 texture = ExtResource("1_op0lx")
@@ -146,5 +160,38 @@ texture = ExtResource("2_o2lv5")
 
 [node name="Player" parent="." unique_id=609020153 instance=ExtResource("4_jromk")]
 position = Vector2(104, 87)
-collision_layer = 2
-collision_mask = 513
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1440858365]
+anchor_mode = 0
+
+[node name="Screen_Transition" type="Node2D" parent="Camera2D" unique_id=120425729]
+script = ExtResource("5_h7krh")
+
+[node name="Area2D_UP" type="Area2D" parent="Camera2D/Screen_Transition" unique_id=664229296]
+position = Vector2(128, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Screen_Transition/Area2D_UP" unique_id=1266085395]
+shape = SubResource("RectangleShape2D_s53oh")
+
+[node name="Area2D_DOWN" type="Area2D" parent="Camera2D/Screen_Transition" unique_id=583258830]
+position = Vector2(128, 176)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Screen_Transition/Area2D_DOWN" unique_id=1372260519]
+shape = SubResource("RectangleShape2D_h7krh")
+
+[node name="Area2D_LEFT" type="Area2D" parent="Camera2D/Screen_Transition" unique_id=470717767]
+position = Vector2(0, 88)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Screen_Transition/Area2D_LEFT" unique_id=1901044749]
+shape = SubResource("RectangleShape2D_gi3cl")
+
+[node name="Area2D_RIGHT" type="Area2D" parent="Camera2D/Screen_Transition" unique_id=2049259833]
+position = Vector2(256, 88)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Screen_Transition/Area2D_RIGHT" unique_id=1270816167]
+shape = SubResource("RectangleShape2D_dp84k")
+
+[connection signal="body_entered" from="Camera2D/Screen_Transition/Area2D_UP" to="Camera2D/Screen_Transition" method="_on_area_2d_up_body_entered"]
+[connection signal="body_entered" from="Camera2D/Screen_Transition/Area2D_DOWN" to="Camera2D/Screen_Transition" method="_on_area_2d_down_body_entered"]
+[connection signal="body_entered" from="Camera2D/Screen_Transition/Area2D_LEFT" to="Camera2D/Screen_Transition" method="_on_area_2d_left_body_entered"]
+[connection signal="body_entered" from="Camera2D/Screen_Transition/Area2D_RIGHT" to="Camera2D/Screen_Transition" method="_on_area_2d_right_body_entered"]
