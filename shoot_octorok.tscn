@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c2trlx3qpgaly"]
+
+[ext_resource type="Script" path="res://ScriptsEnemy/shoot_octorok.gd" id="1_mnei5"]
+[ext_resource type="Texture2D" uid="uid://b42sau1whohtb" path="res://Assets/02_Overworld_Enemies/Rock.png" id="2_7uhdg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xv4ay"]
+radius = 3.1622777
+
+[node name="Shoot_octorok" type="Area2D" unique_id=1200439392]
+script = ExtResource("1_mnei5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=165472607]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_7uhdg")
+region_enabled = true
+region_rect = Rect2(0, 0, 15.452993, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=307749142]
+shape = SubResource("CircleShape2D_xv4ay")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=145269269]
+enable_node_path = NodePath("../CollisionShape2D")
