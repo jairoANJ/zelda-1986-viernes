@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="zelda_1986-ESTUDIANTES-LUNES"
+config/name="zelda_1986-ESTUDIANTES-LUNES-GitHub"
 run/main_scene="uid://c06u1lx28o0u0"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"

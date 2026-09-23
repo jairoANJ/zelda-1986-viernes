@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bqw3c0cjbpk0b" path="res://octorok_2_red.gd" id="1_2eg1w"]
 [ext_resource type="Texture2D" uid="uid://chxepmkufqkwx" path="res://Assets/02_Overworld_Enemies/Octorok_Red_Down.png" id="1_5m5a5"]
 [ext_resource type="Texture2D" uid="uid://cxr21fa6c8iqj" path="res://Assets/02_Overworld_Enemies/Octorok_Red_Left.png" id="2_2eg1w"]
+[ext_resource type="PackedScene" uid="uid://ooswjyse3lle" path="res://Enemies/shoot_octorok.tscn" id="2_gqx6r"]
 [ext_resource type="Texture2D" uid="uid://dy14gllwowvbb" path="res://Assets/02_Overworld_Enemies/Octorok_Red_Right.png" id="3_gqx6r"]
 [ext_resource type="Texture2D" uid="uid://d343doxhynl2q" path="res://Assets/02_Overworld_Enemies/Octorok_Red_Up.png" id="4_tp6us"]
 
@@ -85,18 +86,22 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ehg00"]
-radius = 8.062258
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s53oh"]
+size = Vector2(10, 10)
 
 [node name="OctorokRed" type="CharacterBody2D" unique_id=835307255]
+collision_layer = 4
 script = ExtResource("1_2eg1w")
+proyectile_scene = ExtResource("2_gqx6r")
+SPEED = 40.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=701600248]
 sprite_frames = SubResource("SpriteFrames_ostoq")
 animation = &"walk_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1849593820]
-shape = SubResource("CircleShape2D_ehg00")
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_s53oh")
 
 [node name="RayCast2D_UP" type="RayCast2D" parent="." unique_id=611070682]
 target_position = Vector2(0, -15)
@@ -117,3 +122,20 @@ collide_with_areas = true
 target_position = Vector2(15, 0)
 collision_mask = 524289
 collide_with_areas = true
+
+[node name="Timer_change_direction" type="Timer" parent="." unique_id=405460622]
+one_shot = true
+
+[node name="Timer_on_shoot" type="Timer" parent="." unique_id=1855871952]
+one_shot = true
+autostart = true
+
+[node name="Timer_dalay_shoot" type="Timer" parent="." unique_id=385513161]
+one_shot = true
+
+[node name="ShootPoint" type="Marker2D" parent="." unique_id=561934152]
+position = Vector2(0, 6)
+
+[connection signal="timeout" from="Timer_change_direction" to="." method="_on_timer_change_direction_timeout"]
+[connection signal="timeout" from="Timer_on_shoot" to="." method="_on_timer_on_shoot_timeout"]
+[connection signal="timeout" from="Timer_dalay_shoot" to="." method="_on_timer_dalay_shoot_timeout"]
