@@ -171,6 +171,7 @@ material = SubResource("ShaderMaterial_ajtct")
 tile_set = SubResource("TileSet_jromk")
 
 [node name="Player" parent="." unique_id=609020153 instance=ExtResource("4_jromk")]
+z_index = 100
 position = Vector2(313, 106)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1440858365]
