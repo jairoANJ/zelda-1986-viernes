@@ -206,16 +206,22 @@ position = Vector2(256, 88)
 shape = SubResource("RectangleShape2D_dp84k")
 
 [node name="OctorokRed" parent="." unique_id=835307255 instance=ExtResource("6_s53oh")]
-position = Vector2(358, 124)
+position = Vector2(390, 103)
 
-[node name="OctorokRed2" parent="." unique_id=419471649 instance=ExtResource("6_s53oh")]
-position = Vector2(338, 91)
+[node name="OctorokRed2" parent="." unique_id=1343446052 instance=ExtResource("6_s53oh")]
+position = Vector2(390, 103)
 
-[node name="OctorokRed3" parent="." unique_id=1643220018 instance=ExtResource("6_s53oh")]
-position = Vector2(426, 121)
+[node name="OctorokRed3" parent="." unique_id=1848020673 instance=ExtResource("6_s53oh")]
+position = Vector2(390, 103)
 
-[node name="OctorokRed4" parent="." unique_id=410677622 instance=ExtResource("6_s53oh")]
-position = Vector2(434, 83)
+[node name="OctorokRed4" parent="." unique_id=1098614167 instance=ExtResource("6_s53oh")]
+position = Vector2(390, 103)
+
+[node name="OctorokRed5" parent="." unique_id=1535000896 instance=ExtResource("6_s53oh")]
+position = Vector2(390, 103)
+
+[node name="OctorokRed6" parent="." unique_id=564657450 instance=ExtResource("6_s53oh")]
+position = Vector2(390, 103)
 
 [connection signal="body_entered" from="Camera2D/Screen_Transition/Area2D_UP" to="Camera2D/Screen_Transition" method="_on_area_2d_up_body_entered"]
 [connection signal="body_entered" from="Camera2D/Screen_Transition/Area2D_DOWN" to="Camera2D/Screen_Transition" method="_on_area_2d_down_body_entered"]

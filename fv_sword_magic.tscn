@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dubf4qajphoob"]
+
+[ext_resource type="Script" uid="uid://cw7d3p8lbk6bc" path="res://fv_sword_magic.gd" id="1_83ssq"]
+[ext_resource type="Texture2D" uid="uid://q1c03gqhipcv" path="res://Assets/01_Items/Sword.png" id="2_qcno8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ostoq"]
+size = Vector2(4, 16)
+
+[node name="FV_sword_magic" type="Area2D" unique_id=406767909]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_83ssq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1366840096]
+texture = ExtResource("2_qcno8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1505587014]
+shape = SubResource("RectangleShape2D_ostoq")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=690132114]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

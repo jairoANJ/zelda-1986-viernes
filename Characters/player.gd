@@ -1,6 +1,14 @@
 class_name Player
 extends CharacterBody2D
 
+#Creo una referencia del hitbox de la espada
+@onready var sword_hit_box: Area2D = $SwordHitBox
+
+#Llamar la espada magica
+@export var sword_magic_scene : PackedScene
+
+
+
 
 @export var SPEED: float = 60.0
 var is_attaking : bool = false
@@ -9,6 +17,9 @@ var facing_direction := Vector2.DOWN
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 var can_move: bool = true
+
+func _ready() -> void:
+	sword_hit_box.monitoring = false
 
 func _physics_process(delta: float) -> void:
 	
@@ -62,15 +73,28 @@ func attack()->void:
 	is_attaking = true
 	
 	if facing_direction == Vector2.DOWN:
+		sword_hit_box.position = Vector2(0,14)
 		animated_sprite_2d.play("sword_down")
 	elif facing_direction == Vector2.UP:
+		sword_hit_box.position = Vector2(0,-14)
 		animated_sprite_2d.play("sword_up")
 	elif facing_direction == Vector2.LEFT:
+		sword_hit_box.position = Vector2(-14,0)
 		animated_sprite_2d.play("sword_left")
 	elif facing_direction == Vector2.RIGHT:
+		sword_hit_box.position = Vector2(14,0)
 		animated_sprite_2d.play("sword_right")
+	#Habilitamos el monitoreo	
+	sword_hit_box.monitoring = true
+	#Lanzar espada	
+	cast_sword()
+		
 	await animated_sprite_2d.animation_finished
-	print("Attack finish")
+	#Desabilitamos monitoreo
+	sword_hit_box.monitoring = false
+	
+	sword_hit_box.position = Vector2(0,0)
+	
 	is_attaking = false
 	
 func move_screen_transition_player(direction: Vector2, distance: float)-> void:
@@ -88,18 +112,36 @@ func move_screen_transition_player(direction: Vector2, distance: float)-> void:
 		
 	var tween = create_tween()
 	tween.tween_property(self, "position", position + direction * distance, 0.5)
-	await tween.finished
+	await tween.finished	
+			
 
+#Detecta
+func _on_sword_hit_box_area_entered(area: Area2D) -> void:
+	print("AREA DETECTADA" , area.name)
+	
+	var enemy: OCTOROK = area.get_parent()
+	
+	print("Padre", enemy.name )
+	print("El grupo que pertenece: ", area.get_parent().get_groups())
+	
+	if enemy.is_in_group("ENEMIGOS"):
+		enemy.take_damage()
+	
+#Crear el metodo para lanzar la espada
+func cast_sword()->void:
+	
+	#Crear una instancia
+	var swordMagic : FV_swordMagic_scene = sword_magic_scene.instantiate()
+	
+	#Posicionamos
+	get_parent().add_child(swordMagic)
+	
+	swordMagic.global_position = global_position
+	swordMagic.direction = facing_direction
+	swordMagic.rotation = facing_direction.angle() + PI /2
 	
 	
 	
 	
 	
-
 	
-	
-			
-			
-			
-			
-			

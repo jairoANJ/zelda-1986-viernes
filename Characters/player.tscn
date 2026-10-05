@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cxvwb3qawavrx" path="res://Characters/Tile_Spritesheets_Link 32x32.png" id="1_5mj4t"]
 [ext_resource type="Script" uid="uid://d2x6af77628po" path="res://Characters/player.gd" id="1_eovys"]
+[ext_resource type="PackedScene" uid="uid://dubf4qajphoob" path="res://fv_sword_magic.tscn" id="2_vb825"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eovys"]
 atlas = ExtResource("1_5mj4t")
@@ -164,16 +165,30 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ajtct"]
 radius = 6.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ostoq"]
+radius = 2.0
+
 [node name="Player" type="CharacterBody2D" unique_id=609020153]
 collision_layer = 2
 script = ExtResource("1_eovys")
+sword_magic_scene = ExtResource("2_vb825")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=931121784]
 sprite_frames = SubResource("SpriteFrames_ostoq")
-animation = &"sword_up"
+animation = &"sword_down"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1148524940]
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_ajtct")
+
+[node name="SwordHitBox" type="Area2D" parent="." unique_id=2145856330]
+position = Vector2(0, 14)
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitBox" unique_id=852405023]
+shape = SubResource("CircleShape2D_ostoq")
+
+[connection signal="area_entered" from="SwordHitBox" to="." method="_on_sword_hit_box_area_entered"]

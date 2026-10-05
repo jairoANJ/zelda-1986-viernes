@@ -1,6 +1,15 @@
 class_name OCTOROK
 extends CharacterBody2D
 
+#Implementando damage al enemigo
+var health: int = 3
+#Variable para comprobar cuando muere
+var is_dead: bool = false
+
+
+
+
+
 #Creo una referencia a la escena de la bala - arrastro al editor
 @export var proyectile_scene: PackedScene
 
@@ -136,5 +145,28 @@ func shoot()-> void:
 	
 	is_moving = true
 
-
+#Crear un funcion para que reciba damage
+func take_damage() -> void:
+	
+	health -= 1
+	print("Vida de Octorok: ", health)
+	
+	if health <= 0:
+		Die()
+		
+func Die()-> void:
+	is_dead = true
+	
+	set_physics_process(false)
+	queue_free()
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
